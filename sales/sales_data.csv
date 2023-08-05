@@ -1,0 +1,11 @@
+product_id,product_name,category,price,quantity_sold,profit
+1,T-shirt,Apparel,15.99,120,600
+2,Jeans,Apparel,39.99,80,800
+3,Sneakers,Shoes,49.99,50,750
+4,Backpack,Accessories,29.99,65,450
+5,Smartphone,Electronics,599.99,15,1500
+6,Headphones,Electronics,99.99,30,600
+7,Skirt,Apparel,19.99,90,400
+8,Watch,Accessories,79.99,40,600
+9,Running Shoes,Shoes,69.99,55,825
+10,Tablet,Electronics,299.99,25,500
