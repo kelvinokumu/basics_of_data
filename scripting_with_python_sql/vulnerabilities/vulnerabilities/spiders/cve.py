@@ -2,6 +2,7 @@ import scrapy
 import os
 import csv
 import json
+import sqlite3
 from os.path import dirname
 
 current_dir = os.path.dirname(__file__)
@@ -15,6 +16,13 @@ class CveSpider(scrapy.Spider):
     start_urls = [f"file://{url}"]
 
     def parse(self, response):
+
+        connection = sqlite3.connect('vuln.db')
+        table = 'CREATE TABLE vulns (exploit TEXT, cve TEXT)'
+        cursor = connection.cursor()
+        cursor.execute(table)
+        connection.commit()
+
         for child in response.xpath('//table'):
             if len(child.xpath('tr')) > 100:
                 table = child
@@ -33,12 +41,15 @@ class CveSpider(scrapy.Spider):
                 # print(row.xpath('td//text()')[0].extract())
                 exploit_id = row.xpath('td//text()')[0].extract()
                 cve_id = row.xpath('td//text()')[2].extract()
-                data[exploit_id] = cve_id
+
+                cursor.execute('INSERT INTO vulns (exploit, cve) VALUES(?, ?)',(exploit_id, cve_id))
+                connection.commit()
+                # data[exploit_id] = cve_id
                 # writer.writerow([exploit_id, cve_id])
                 count += 1
             except IndexError:
                 pass
 
         # csv_file.close()
-        json.dump(data, json_file)
-        json_file.close()
+        # json.dump(data, json_file)
+        # json_file.close()
