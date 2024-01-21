@@ -1,0 +1,11 @@
+student_id,first_name,last_name,age,gender,math_score,science_score,english_score
+1,John,Doe,18,M,85,78,92
+2,Jane,Smith,17,F,72,88,95
+3,Mike,Johnson,18,M,65,92,78
+4,Emily,Williams,16,F,90,68,82
+5,Chris,Brown,17,M,78,75,88
+6,Sarah,Jones,18,F,92,82,96
+7,David,Lee,16,M,70,84,77
+8,Laura,Miller,17,F,88,70,90
+9,James,Anderson,16,M,75,90,85
+10,Olivia,Brown,18,F,95,96,92
