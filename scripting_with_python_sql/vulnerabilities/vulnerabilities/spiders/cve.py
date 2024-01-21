@@ -1,6 +1,7 @@
 import scrapy
 import os
 import csv
+import json
 from os.path import dirname
 
 current_dir = os.path.dirname(__file__)
@@ -20,9 +21,11 @@ class CveSpider(scrapy.Spider):
                 break
 
         count = 0
-        csv_file = open('vulnerabilities.csv', 'w')
-        writer = csv.writer(csv_file)
-        writer.writerow(['exploit id', 'cve id'])
+        data = {}
+        # csv_file = open('vulnerabilities.csv', 'w')
+        json_file = open('vulnerabilities.json', 'w')
+        # writer = csv.writer(csv_file)
+        # writer.writerow(['exploit id', 'cve id'])
         for row in table.xpath('//tr'):
             if count > 100:
                 break
@@ -30,9 +33,12 @@ class CveSpider(scrapy.Spider):
                 # print(row.xpath('td//text()')[0].extract())
                 exploit_id = row.xpath('td//text()')[0].extract()
                 cve_id = row.xpath('td//text()')[2].extract()
-                writer.writerow([exploit_id, cve_id])
+                data[exploit_id] = cve_id
+                # writer.writerow([exploit_id, cve_id])
                 count += 1
             except IndexError:
                 pass
 
-        csv_file.close()
+        # csv_file.close()
+        json.dump(data, json_file)
+        json_file.close()
