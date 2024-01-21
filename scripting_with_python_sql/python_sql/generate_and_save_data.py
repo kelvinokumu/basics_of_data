@@ -37,6 +37,17 @@ def retrieve_data(connection):
         print(row)
 
 
+def search_name(connection, name_to_search):
+    search_query = 'SELECT * FROM people WHERE name = ?'
+    cursor = connection.cursor()
+    cursor.execute(search_query, (name_to_search,))
+    result = cursor.fetchall()
+    if result:
+        print(f"Search results for {name_to_search}: {result}")
+    else:
+        print(f"{name_to_search} not found in the database.")
+
+
 def main():
     connection = sqlite3.connect('sample.db')
 
@@ -49,6 +60,10 @@ def main():
 
     # Retrieve and print data
     retrieve_data(connection)
+
+    # Search for a name in the database
+    name_to_search = input("Enter a name to search: ")
+    search_name(connection, name_to_search)
 
     # Close the database connection
     connection.close()
